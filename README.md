@@ -56,8 +56,8 @@ Trois notebooks dans `notebooks/03-modeling/`, un par itération.
 ```bash
 git clone https://github.com/BoostMetrics/Recommandation-de-films.git
 cd Recommandation-de-films
-python -m venv .venv
-.venv\Scripts\activate
+python -m venv venv_film
+venv_film\Scripts\activate
 pip install -r requirements.txt
 ```
 

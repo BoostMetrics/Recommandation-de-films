@@ -206,11 +206,16 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# Donn�es brutes
-*.tsv
-*.csv
-*.txt
+# Données brutes
 data/
 
-.vscode/
+# Artefacts générés
 *.pkl
+
+# Environnements et IDE
+venv_film/
+venv_exo/
+.vscode/
+
+# Données générées par les notebooks
+notebooks/**/*.csv

@@ -3,12 +3,15 @@ import pickle
 import pandas as pd
 from scipy.sparse import hstack
 from sklearn.metrics.pairwise import cosine_similarity
+from pathlib import Path
+
+CHEMIN_PKL = Path(__file__).resolve().parent.parent / "data" / "processed" / "data_reco.pkl"
 
 st.set_page_config(page_title="Recommandation de films", layout="wide")
 
 @st.cache_resource
 def load_data():
-    with open('data_reco.pkl', 'rb') as f:
+    with open(CHEMIN_PKL, 'rb') as f:
         return pickle.load(f)
 
 data = load_data()
