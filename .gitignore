@@ -222,3 +222,4 @@ venv_exo/
 # Données générées par les notebooks
 notebooks/**/*.csv
 
+.DS_Store
