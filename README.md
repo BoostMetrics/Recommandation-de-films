@@ -50,7 +50,6 @@ Trois notebooks dans `notebooks/03-modeling/`, un par itération.
 2. **+ casting**. Meilleur dès que deux films partagent des acteurs.
 3. **+ tags MovieLens**. Version retenue.
 
-
 ## Installation
 
 ```bash
@@ -59,12 +58,55 @@ cd Recommandation-de-films
 python -m venv venv_film
 venv_film\Scripts\activate
 pip install -r requirements.txt
+pip install -e .
 ```
 
-Les données ne sont pas versionnées (plusieurs Go). À télécharger dans `data/raw/` :
-[IMDB](https://datasets.imdbws.com/), [MovieLens](https://grouplens.org/datasets/movielens/).
+Le `pip install -e .` est **obligatoire** : il rend le package `src` importable
+depuis les notebooks. Sans lui, la première cellule échoue avec
+`ModuleNotFoundError: No module named 'src'`.
 
-Les notebooks s'exécutent dans l'ordre des dossiers.
+Vérification, dans une cellule de notebook :
+
+```python
+from src.paths import ROOT
+print(ROOT)   # doit afficher le chemin de votre clone
+```
+
+**Kernel Jupyter** : sélectionner celui de `venv_film`, pas celui de base.
+
+## Mise en place des données
+
+Les données ne sont pas versionnées (plusieurs Go). Les dossiers existent déjà dans
+le dépôt, il faut les remplir :
+
+```
+data/raw/imdb/        title.basics.tsv, title.ratings.tsv,
+                      title.principals.tsv, name.basics.tsv
+data/raw/movielens/   movies.csv, ratings.csv, links.csv, tags.csv,
+                      genome-scores.csv, genome-tags.csv
+data/processed/       vide au départ, rempli par les notebooks 02
+```
+
+Téléchargement : [IMDB](https://datasets.imdbws.com/) (fichiers `.tsv.gz`, à
+décompresser), [MovieLens](https://grouplens.org/datasets/movielens/) (archive
+`ml-25m`, à dézipper).
+
+Aucun chemin n'est à modifier dans les notebooks : ils sont tous résolus par
+`src/paths.py`, qui définit `ROOT`, `DATA_RAW`, `DATA_PROCESSED`, `DATA_RAW_IMDB`
+et `DATA_RAW_MOVIELENS` à partir de la racine du dépôt.
+
+## Exécution
+
+Dans cet ordre :
+
+1. `notebooks/02-preprocessing/merge_imdb.ipynb`
+2. `notebooks/02-preprocessing/merge_movielens.ipynb`
+3. `notebooks/02-preprocessing/preproc_cast_imdb.ipynb`
+4. `notebooks/03-modeling/` — les trois itérations
+5. `streamlit run src/app.py`
+
+Les notebooks de `01-eda/` sont de l'exploration, ils ne sont pas nécessaires à la
+chaîne de traitement.
 
 ## Démo
 
@@ -74,7 +116,6 @@ streamlit run src/app.py
 
 Recherche par titre ou par genre, et trois curseurs pour ajuster les poids des blocs
 en direct.
-
 
 ## Limites
 
@@ -87,13 +128,13 @@ Pas de personnalisation par utilisateur. Le seuil de votes écarte le cinéma de
 ## Structure
 
 ```
-data/                        données brutes (non versionnées)
+data/raw/imdb/               données brutes IMDB (non versionnées)
+data/raw/movielens/          données brutes MovieLens (non versionnées)
+data/processed/              sorties des notebooks 02 (non versionnées)
 docs/                        rapport et schémas
 notebooks/01-eda/            exploration IMDB et MovieLens
 notebooks/02-preprocessing/  nettoyage, jointures, agrégation casting et tags
 notebooks/03-modeling/       les trois itérations
 notebooks/04-evaluation/
-src/                         code réutilisable et app Streamlit
+src/                         paths.py, code réutilisable et app Streamlit
 ```
-
-
