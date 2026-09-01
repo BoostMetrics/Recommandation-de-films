@@ -216,7 +216,6 @@ data/**
 
 # Environnements et IDE
 venv_film/
-venv_exo/
 .vscode/
 
 # Données générées par les notebooks
