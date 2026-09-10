@@ -3,8 +3,8 @@
 Projet fil rouge de notre formation Data Scientist.
 
 Moteur de recommandation content-based : on donne un film, il en sort d'autres qui
-lui ressemblent. Pas de filtrage collaboratif, on ne se base que sur le contenu des
-films eux-mêmes.
+lui ressemblent.
+
 
 ## Données
 
