@@ -23,8 +23,8 @@ tags_matrice = data['tags_matrice']
 
 st.sidebar.header("Pondérations")
 w_genre = st.sidebar.slider("Genre", 0.0, 2.0, 1.0, 0.1)
-w_cast = st.sidebar.slider("Casting", 0.0, 2.0, 1.0, 0.1)
-w_tags = st.sidebar.slider("Tags", 0.0, 2.0, 1.0, 0.1)
+w_cast = st.sidebar.slider("Casting", 0.0, 2.0, 0.4, 0.1)
+w_tags = st.sidebar.slider("Tags", 0.0, 2.0, 0.2, 0.1)
 
 @st.cache_resource
 def build_matrice(w_genre, w_cast, w_tags):
